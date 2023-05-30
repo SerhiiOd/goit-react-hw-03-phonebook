@@ -18,6 +18,12 @@ class ContactForm extends Component {
   nameInputId = nanoid();
   numberInputId = nanoid();
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.name !== this.state.name) {
+  //     console.log('updated');
+  //   }
+  // }
+
   handleInputChange = event => {
     const { name, value } = event.currentTarget;
 

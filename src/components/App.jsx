@@ -18,7 +18,20 @@ class App extends Component {
     number: '',
   };
 
-  // Додає контакт у список
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    console.log(parsedContacts);
+
+    this.setState({ contacts: parsedContacts });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   addContact = ({ name, number }) => {
     const normalizedFind = name.toLowerCase();
@@ -41,8 +54,6 @@ class App extends Component {
     }));
   };
 
-  // видаляє контакт
-
   deleteContact = contactId => {
     this.setState(prev => ({
       contacts: prev.contacts.filter(contact => contact.id !== contactId),
@@ -52,8 +63,6 @@ class App extends Component {
   handleFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
-
-  // фільтрація по імені
 
   filterList = () => {
     const { filter, contacts } = this.state;
